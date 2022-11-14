@@ -53,6 +53,10 @@ type UserCreateOutput {
   user: User!
 }
 
+type AuthLoginOutput {
+  accessToken: String!
+}
+
 type Query {
   sayHello: String!
   ProductsPagination(skip: Int!, take: Int!, sortBy: ProductsPaginaionSortBy): ProductsPagination!
@@ -72,6 +76,7 @@ type Mutation {
   productCreate(input: ProductCreateInput!): ProductCreateOutput!
   productUpdate(productId: ID!, input: ProductUpdateInput!): ProductUpdateOutput!
   productDelete(productId: ID!): ProductDeleteOutuput!
+  authLogin(username: String!, password: String!): AuthLoginOutput!
   userCreate(input: UserCreateInput!): UserCreateOutput!
 }
 

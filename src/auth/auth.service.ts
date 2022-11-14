@@ -3,11 +3,21 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
+import { User } from 'src/user/entities/user.entity';
+import { AuthLoginOutput } from './dto/auth-login.dto';
+import { JwtService } from '@nestjs/jwt';
 
+export interface JWTPayload {
+  id: string
+  email: string
+  username: string
+
+}
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UserService){}
+    constructor(private readonly userService: UserService,
+      private readonly jwtService: JwtService){}
     
     async validateUser(email: string, password: string): Promise<any>{
         try{
@@ -26,5 +36,15 @@ export class AuthService {
         }
     }
 
+    async login(user: User): Promise<AuthLoginOutput>{
+      const payload: JWTPayload = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      }
+      return {
+        accessToken: this.jwtService.sign(payload)
+      }
+    }
 
 }

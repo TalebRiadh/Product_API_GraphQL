@@ -2,11 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm'
-import { ProductCreateInput, ProductCreateOutput } from './dto/product-create.dto';
-import { ProductUpdateInput, ProductUpdateOutput } from './dto/product-update.dto';
-import { ProductDeleteOutuput } from './dto/product-delete.dto';
-import { ProductsPagination, ProductsPaginationArgs } from './dto/products-pagination.dto';
+
 import { SortDirection } from './pagination/dto/pagination.dto';
+import {ProductCreateInput, 
+        ProductCreateOutput, 
+        ProductUpdateInput, 
+        ProductUpdateOutput, 
+        ProductDeleteOutuput, 
+        ProductsPagination, 
+        ProductsPaginationArgs} from './dto/index'
+
 
 @Injectable()
 export class ProductService {
