@@ -13,6 +13,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  email: String!
+  username: String!
+  password: String!
+}
+
 type Product {
   id: ID!
   created_at: DateTime!
@@ -38,15 +47,6 @@ type ProductUpdateOutput {
 type ProductsPagination {
   totalCount: Float!
   nodes: [Product!]!
-}
-
-type User {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  email: String!
-  username: String!
-  password: String!
 }
 
 type UserCreateOutput {

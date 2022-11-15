@@ -10,7 +10,10 @@ import {ProductCreateInput,
         ProductUpdateOutput, 
         ProductDeleteOutuput, 
         ProductsPagination, 
-        ProductsPaginationArgs} from './dto/index'
+        ProductsPaginationArgs} from './dto/index';
+        
+import { JWTPayload } from 'src/auth/auth.service';
+import { User } from 'src/user/entities/user.entity';
 
 
 @Injectable()
@@ -21,10 +24,15 @@ export class ProductService {
     ){}
 
 
-    async productCreate(input: ProductCreateInput): Promise<ProductCreateOutput> {
-
-        const newProduct = this.productRepository.create(input)
-        const product = await this.productRepository.save(newProduct)
+    async productCreate(
+        user:JWTPayload,
+        input: ProductCreateInput
+        ): Promise<ProductCreateOutput> 
+    {
+        const new_product = this.productRepository.create(input)
+        new_product.creator = new User()
+        new_product.creator.id = user.id
+        const product = await this.productRepository.save(new_product)
         return { product }
     }
 

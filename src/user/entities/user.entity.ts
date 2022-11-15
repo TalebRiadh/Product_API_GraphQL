@@ -1,6 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { Product } from "src/product/entities/product.entity";
 import { Node } from "src/product/pagination/entities/node.entities";
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToMany } from "typeorm";
 
 
 @Entity()
@@ -19,6 +20,8 @@ export class User extends Node {
     @Column()
     password: string
 
+    @OneToMany(() => Product, (target) => target.creator)
+    products: Product[]
 
 
 }

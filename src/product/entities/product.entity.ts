@@ -1,5 +1,6 @@
 import { ObjectType, Field } from "@nestjs/graphql"
-import {Entity,  Column} from "typeorm"
+import { User } from "src/user/entities/user.entity"
+import {Entity,  Column, JoinColumn, ManyToOne, RelationId} from "typeorm"
 import { Node } from "../pagination/entities/node.entities"
 
 
@@ -23,5 +24,10 @@ export class Product extends Node{
     @Column()
     available: boolean
 
- 
+    @ManyToOne(() => User, (user) => user.products)
+    @JoinColumn()
+    creator: User
+
+    @RelationId((self: Product) => self.creator)
+    readonly creatorId: User['id']
 }

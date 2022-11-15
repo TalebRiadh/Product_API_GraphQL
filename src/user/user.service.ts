@@ -19,6 +19,9 @@ export class UserService {
     async userGet(email: User['email']): Promise<User> {
             return this.userRepository.findOneByOrFail({email:email})
         }
+    async userGetById(id: User['id']): Promise<User> {
+      return this.userRepository.findOneByOrFail({id: id})
+    }
 
     async userCreate(input: UserCreateInput): Promise<UserCreateOutput> {
         const hashedPassword = await bcrypt.hash(input.password, 10);
